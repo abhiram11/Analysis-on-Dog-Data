@@ -1,0 +1,8 @@
+dog = load '/user/hive/warehouse/dogs.db/dogsphy/dogquery.csv' using PigStorage(',') as (Breed:chararray,weight_high_lbs:int,weight_low_lbs:int,Classification:chararray,obey:float);
+good = filter dog by obey>0.7;
+ord1 = order good by weight_high_lbs desc;
+ord2 = order ord1 by weight_low_lbs desc;
+store ord2 into '/user/hive/warehouse/dogs.db/dogsphy/result';
+
+ord3 = order ord2 by Breed asc;
+dump ord3;
